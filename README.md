@@ -21,7 +21,7 @@ Sistema de gestión de Máquinas Virtuales (VMs) y Usuarios construido con React
 ## Instalación
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/MauricioSantos12/ifx-challenge-frontend.git
 cd ifx-challenge-frontend
 npm install
 ```
