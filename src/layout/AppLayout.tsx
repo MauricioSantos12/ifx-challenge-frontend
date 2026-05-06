@@ -8,17 +8,18 @@ import {
   DrawerOverlay,
   Flex,
   Heading,
+  HStack,
   VStack,
   Icon,
+  IconButton,
   useColorMode,
   useDisclosure,
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { FiMonitor, FiUsers, FiHome, FiLogOut } from "react-icons/fi";
+import { FiMonitor, FiUsers, FiHome, FiLogOut, FiSun, FiMoon, FiMenu } from "react-icons/fi";
 import { useAuth } from "../context/AuthContext";
 import Footer from "./Footer";
-import Header from "./Header";
 
 const NAV_ITEMS = [
   { label: "Dashboard", icon: FiHome, path: "/dashboard", adminOnly: false },
@@ -134,13 +135,43 @@ export default function AppLayout() {
         bg={colorMode === "light" ? "white" : "gray.900"}
         overflowY="auto"
       >
-        <Header
-          isMobile={isMobile}
-          onOpen={onOpen}
-          colorMode={colorMode}
-          toggleColorMode={toggleColorMode}
-          user={user}
-        />
+        <Flex
+          as="header"
+          justify="space-between"
+          align="center"
+          px={6}
+          py={3}
+          bg="blue.800"
+          color="white"
+          borderBottom="1px solid"
+          borderColor="gray.500"
+        >
+          {isMobile ? (
+            <IconButton
+              aria-label="Abrir menú"
+              icon={<FiMenu />}
+              onClick={onOpen}
+              size="sm"
+              variant="ghost"
+              color="white"
+              _hover={{ bg: "whiteAlpha.200" }}
+            />
+          ) : (
+            <Box />
+          )}
+          <HStack spacing={3}>
+            <IconButton
+              aria-label="Toggle color mode"
+              icon={colorMode === "light" ? <FiMoon /> : <FiSun />}
+              onClick={toggleColorMode}
+              size="sm"
+              variant="ghost"
+              color="white"
+              _hover={{ bg: "whiteAlpha.200" }}
+            />
+            <Box fontSize="sm">{user?.email}</Box>
+          </HStack>
+        </Flex>
 
         <Box flex={1} p={6}>
           <Outlet />

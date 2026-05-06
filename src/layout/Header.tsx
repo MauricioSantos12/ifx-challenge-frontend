@@ -1,47 +1,24 @@
-import { Box, Flex, HStack, IconButton } from "@chakra-ui/react";
-import { FiMenu, FiMoon, FiSun } from "react-icons/fi";
-import { User } from "../services/auth";
+import { Button, Flex, Heading, HStack, IconButton, useColorMode } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import { FiMoon, FiSun } from "react-icons/fi";
 
-interface HeaderProps {
-  isMobile: boolean | undefined;
-  onOpen: () => void;
-  colorMode: string;
-  toggleColorMode: () => void;
-  user: User | null;
-}
+export default function Header() {
+  const navigate = useNavigate();
+  const { colorMode, toggleColorMode } = useColorMode();
 
-export default function Header({
-  isMobile,
-  onOpen,
-  colorMode,
-  toggleColorMode,
-  user,
-}: HeaderProps) {
   return (
     <Flex
       as="header"
-      justify="space-between"
       align="center"
+      justify="space-between"
       px={6}
       py={3}
       bg="blue.800"
       color="white"
-      borderBottom="1px solid"
-      borderColor="gray.500"
     >
-      {isMobile ? (
-        <IconButton
-          aria-label="Abrir menú"
-          icon={<FiMenu />}
-          onClick={onOpen}
-          size="sm"
-          variant="ghost"
-          color="white"
-          _hover={{ bg: "whiteAlpha.200" }}
-        />
-      ) : (
-        <Box />
-      )}
+      <Heading size="sm" cursor="pointer" onClick={() => navigate("/vms")}>
+        VM Manager
+      </Heading>
       <HStack spacing={3}>
         <IconButton
           aria-label="Toggle color mode"
@@ -52,7 +29,15 @@ export default function Header({
           color="white"
           _hover={{ bg: "whiteAlpha.200" }}
         />
-        <Box fontSize="sm">{user?.email}</Box>
+        <Button
+          size="sm"
+          variant="ghost"
+          color="white"
+          _hover={{ bg: "whiteAlpha.200" }}
+          onClick={() => navigate("/login")}
+        >
+          Iniciar Sesión
+        </Button>
       </HStack>
     </Flex>
   );
